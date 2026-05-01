@@ -35,11 +35,8 @@ export default function NosotrosPage() {
 
         {/* Hero editorial */}
         <div className="pt-14 pb-12 border-b border-rule/60">
-          <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-tertiary mb-4">
-            MANIFIESTO
-          </p>
           <h1
-            className="font-serif font-bold leading-[1.1] tracking-[-0.02em] text-ink max-w-[800px]"
+            className="font-['Switzer'] font-semibold leading-[1.1] tracking-[-0.025em] text-ink max-w-[800px]"
             style={{ fontSize: 'clamp(30px, 4vw, 52px)' }}
           >
             El marketing digital se rompió en doce pestañas. Lo estamos volviendo a juntar.

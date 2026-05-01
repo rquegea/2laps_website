@@ -37,11 +37,8 @@ export default function ContactoPage() {
 
         {/* Header editorial */}
         <div className="pt-14 pb-10 border-b border-rule/60">
-          <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-tertiary mb-4">
-            CONTACTO · VENTAS
-          </p>
           <h1
-            className="font-serif font-bold leading-[1.1] tracking-[-0.02em] text-ink max-w-[680px]"
+            className="font-['Switzer'] font-semibold leading-[1.1] tracking-[-0.025em] text-ink max-w-[680px]"
             style={{ fontSize: 'clamp(32px, 4vw, 52px)' }}
           >
             Hablemos de tu paisaje digital.

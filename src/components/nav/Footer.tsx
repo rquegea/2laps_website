@@ -50,7 +50,7 @@ export function Footer() {
           {/* Columns */}
           {COLUMNS.map((col) => (
             <div key={col.title}>
-              <p className="text-[10px] font-sans font-bold uppercase tracking-[0.12em] text-ink-tertiary mb-4">
+              <p className="text-[10px] font-['Switzer'] font-bold uppercase tracking-[0.12em] text-ink-tertiary mb-4">
                 {col.title}
               </p>
               <ul className="space-y-2.5">
@@ -59,14 +59,14 @@ export function Footer() {
                     {link.external ? (
                       <a
                         href={link.href}
-                        className="text-[13px] font-['Times_New_Roman'] text-ink-secondary hover:text-ink transition-colors duration-100"
+                        className="text-[13px] font-['Switzer'] text-ink-secondary hover:text-ink transition-colors duration-100"
                       >
                         {link.label}
                       </a>
                     ) : (
                       <Link
                         href={link.href}
-                        className="text-[13px] font-['Times_New_Roman'] text-ink-secondary hover:text-ink transition-colors duration-100"
+                        className="text-[13px] font-['Switzer'] text-ink-secondary hover:text-ink transition-colors duration-100"
                       >
                         {link.label}
                       </Link>
