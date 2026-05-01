@@ -14,11 +14,16 @@ import { mockFeedItems } from '@/lib/mock-feed';
 import type { NewsItem } from '@/types/feed';
 
 export default function Page() {
+  const [embed, setEmbed] = useState(false);
   const [savedIds, setSavedIds] = useState<Set<number>>(new Set());
   const [activeTab, setActiveTab] = useState<'daily' | 'favorites'>('daily');
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
   const [calendarOpen, setCalendarOpen] = useState(false);
   const calendarRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setEmbed(new URLSearchParams(window.location.search).get('embed') === '1');
+  }, []);
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
@@ -48,10 +53,10 @@ export default function Page() {
 
   return (
     <div className="min-h-screen bg-background">
-      <TopNav />
+      {!embed && <TopNav />}
 
       {/* Title + Tabs */}
-      <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 pt-5 sm:pt-8 pb-3 sm:pb-4">
+      {!embed && <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 pt-5 sm:pt-8 pb-3 sm:pb-4">
         <h1 className="text-2xl sm:text-4xl md:text-5xl font-serif font-medium text-foreground leading-tight tracking-tight">
           2day
         </h1>
@@ -107,7 +112,7 @@ export default function Page() {
             )}
           </div>
         </div>
-      </div>
+      </div>}
 
       {activeTab === 'daily' ? (
         <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 pb-8 sm:pb-12 pt-4">
@@ -187,7 +192,7 @@ export default function Page() {
           )}
         </div>
       )}
-      <Footer />
+      {!embed && <Footer />}
     </div>
   );
 }

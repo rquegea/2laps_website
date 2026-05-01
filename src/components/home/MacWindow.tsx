@@ -203,7 +203,7 @@ export function MacWindow() {
           >
             {windowState === 'open' && (
               <iframe
-                src="/2day"
+                src="/2day?embed=1"
                 title="2laps — Feed del día"
                 style={{
                   width: IFRAME_VIRTUAL_W,
