@@ -38,7 +38,7 @@ export default function ContactoPage() {
         {/* Header editorial */}
         <div className="pt-14 pb-10 border-b border-rule/60">
           <h1
-            className="font-['Switzer'] font-semibold leading-[1.1] tracking-[-0.025em] text-ink max-w-[680px]"
+            className="font-['Times_New_Roman'] font-normal leading-[1.1] tracking-[-0.01em] text-ink max-w-[680px]"
             style={{ fontSize: 'clamp(32px, 4vw, 52px)' }}
           >
             Hablemos de tu paisaje digital.
