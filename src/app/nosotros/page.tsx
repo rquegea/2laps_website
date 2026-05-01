@@ -54,7 +54,7 @@ export default function NosotrosPage() {
         {/* Sección "El problema" */}
         <div className="py-14 border-b border-rule/60">
           <div className="max-w-[680px] space-y-6">
-            <h2 className="font-serif font-bold text-[24px] leading-[1.2] text-ink">
+            <h2 className="font-['Switzer'] font-semibold text-[24px] leading-[1.2] text-ink">
               El problema que nadie resuelve
             </h2>
             <p className="font-sans text-[15px] leading-[1.75] text-ink-secondary">
@@ -81,7 +81,7 @@ export default function NosotrosPage() {
 
         {/* Diagrama de correlación */}
         <div className="py-14 border-b border-rule/60">
-          <h2 className="font-serif font-bold text-[22px] leading-[1.2] text-ink mb-2">
+          <h2 className="font-['Switzer'] font-semibold text-[22px] leading-[1.2] text-ink mb-2">
             De señales a titulares
           </h2>
           <p className="font-sans text-[14px] text-ink-secondary mb-10 max-w-[480px]">
@@ -93,7 +93,7 @@ export default function NosotrosPage() {
 
         {/* Cómo funciona */}
         <div className="py-14 border-b border-rule/60">
-          <h2 className="font-serif font-bold text-[22px] leading-[1.2] text-ink mb-10">
+          <h2 className="font-['Switzer'] font-semibold text-[22px] leading-[1.2] text-ink mb-10">
             Cómo funciona en una página
           </h2>
           <div className="space-y-0">
@@ -108,7 +108,7 @@ export default function NosotrosPage() {
                   </span>
                 </div>
                 <div className="max-w-[600px]">
-                  <h3 className="font-serif font-bold text-[18px] leading-[1.3] text-ink mb-3">
+                  <h3 className="font-['Switzer'] font-semibold text-[18px] leading-[1.3] text-ink mb-3">
                     {s.title}
                   </h3>
                   <p className="font-sans text-[14px] leading-[1.75] text-ink-secondary">
@@ -123,7 +123,7 @@ export default function NosotrosPage() {
         {/* Quién está detrás */}
         <div className="py-14 border-b border-rule/60">
           <div className="max-w-[680px]">
-            <h2 className="font-serif font-bold text-[22px] leading-[1.2] text-ink mb-6">
+            <h2 className="font-['Switzer'] font-semibold text-[22px] leading-[1.2] text-ink mb-6">
               Quién está detrás
             </h2>
             <p className="font-serif italic text-[17px] leading-[1.75] text-ink-secondary">
@@ -138,7 +138,7 @@ export default function NosotrosPage() {
         {/* CTA final */}
         <div className="py-14">
           <h2
-            className="font-serif font-bold leading-[1.1] tracking-[-0.02em] text-ink mb-8 max-w-[480px]"
+            className="font-['Switzer'] font-semibold leading-[1.1] tracking-[-0.02em] text-ink mb-8 max-w-[480px]"
             style={{ fontSize: 'clamp(24px, 3vw, 38px)' }}
           >
             ¿Quieres ver tu marca dentro?
