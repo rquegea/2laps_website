@@ -1,11 +1,11 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronDown, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
-
-const NAV_ITEMS = ['Para ti', 'Mercados', 'Contacto', 'Nosotros'] as const;
+import { ThemeToggle } from './ThemeToggle';
 
 const MERCADOS_COL1 = [
   { label: 'Retail', description: 'Gran consumo y distribución' },
@@ -27,10 +27,8 @@ const MERCADOS_ALL = [...MERCADOS_COL1, ...MERCADOS_COL2];
 
 export function TopNav() {
   const pathname = usePathname();
-  const is2day = pathname === '/2day';
 
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<string>(is2day ? 'Para ti' : '');
   const [mercadosOpen, setMercadosOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -43,6 +41,14 @@ export function TopNav() {
     closeTimer.current = setTimeout(() => setMercadosOpen(false), 120);
   }
 
+  const navLinkClass = (active: boolean) =>
+    cn(
+      'px-4 h-14 text-[12px] font-sans font-500 transition-colors duration-100 inline-flex items-center',
+      active
+        ? 'text-ink font-600 border-b-[1.5px] border-ink'
+        : 'text-ink-tertiary hover:text-ink-secondary'
+    );
+
   return (
     <>
       <header className="md:sticky md:top-0 z-50 bg-paper/95 backdrop-blur-sm border-b border-rule/80">
@@ -50,90 +56,57 @@ export function TopNav() {
           <div className="flex items-center h-14 gap-4">
             {/* Logo */}
             <div className="flex-1 basis-0 flex justify-start">
-              <a
+              <Link
                 href="/"
                 className="font-['Switzer'] font-semibold text-[18px] tracking-[-0.04em] text-ink shrink-0"
               >
                 2laps
-              </a>
+              </Link>
             </div>
 
             {/* Nav tabs — desktop */}
             <nav className="hidden md:flex items-center gap-0" aria-label="Navegación principal">
-              {NAV_ITEMS.map((item) => {
-                const isActive = is2day && item === 'Para ti'
-                  ? true
-                  : activeTab === item && !is2day;
+              <Link href="/2day" className={navLinkClass(pathname === '/2day')}>
+                Para ti
+              </Link>
 
-                if (item === 'Mercados') {
-                  return (
-                    <div
-                      key={item}
-                      onMouseEnter={openMercados}
-                      onMouseLeave={closeMercados}
-                    >
-                      <button
-                        onClick={() => setActiveTab(item)}
-                        className={cn(
-                          'flex items-center gap-1 px-4 h-14 text-[12px] font-sans font-500 transition-colors duration-100',
-                          activeTab === item
-                            ? 'text-ink font-600 border-b-[1.5px] border-ink'
-                            : 'text-ink-tertiary hover:text-ink-secondary'
-                        )}
-                        aria-haspopup="true"
-                        aria-expanded={mercadosOpen}
-                      >
-                        {item}
-                        <ChevronDown
-                          size={11}
-                          strokeWidth={2}
-                          className={cn(
-                            'transition-transform duration-200 mt-px',
-                            mercadosOpen ? 'rotate-180' : 'rotate-0'
-                          )}
-                        />
-                      </button>
-                    </div>
-                  );
-                }
-
-                if (item === 'Para ti') {
-                  return (
-                    <a
-                      key={item}
-                      href="/2day"
-                      className={cn(
-                        'px-4 h-14 text-[12px] font-sans font-500 transition-colors duration-100 inline-flex items-center',
-                        isActive
-                          ? 'text-ink font-600 border-b-[1.5px] border-ink'
-                          : 'text-ink-tertiary hover:text-ink-secondary'
-                      )}
-                    >
-                      {item}
-                    </a>
-                  );
-                }
-
-                return (
-                  <button
-                    key={item}
-                    onClick={() => setActiveTab(item)}
+              <div onMouseEnter={openMercados} onMouseLeave={closeMercados}>
+                <button
+                  onClick={() => setMercadosOpen((v) => !v)}
+                  className={cn(
+                    'flex items-center gap-1 px-4 h-14 text-[12px] font-sans font-500 transition-colors duration-100',
+                    mercadosOpen
+                      ? 'text-ink font-600 border-b-[1.5px] border-ink'
+                      : 'text-ink-tertiary hover:text-ink-secondary'
+                  )}
+                  aria-haspopup="true"
+                  aria-expanded={mercadosOpen}
+                >
+                  Mercados
+                  <ChevronDown
+                    size={11}
+                    strokeWidth={2}
                     className={cn(
-                      'px-4 h-14 text-[12px] font-sans font-500 transition-colors duration-100',
-                      isActive
-                        ? 'text-ink font-600 border-b-[1.5px] border-ink'
-                        : 'text-ink-tertiary hover:text-ink-secondary'
+                      'transition-transform duration-200 mt-px',
+                      mercadosOpen ? 'rotate-180' : 'rotate-0'
                     )}
-                  >
-                    {item}
-                  </button>
-                );
-              })}
+                  />
+                </button>
+              </div>
+
+              <Link href="/contacto" className={navLinkClass(pathname === '/contacto')}>
+                Contacto
+              </Link>
+
+              <Link href="/nosotros" className={navLinkClass(pathname === '/nosotros')}>
+                Nosotros
+              </Link>
             </nav>
 
             {/* Right actions */}
-            <div className="flex-1 basis-0 flex justify-end items-center gap-4">
-                <a
+            <div className="flex-1 basis-0 flex justify-end items-center gap-3">
+              <ThemeToggle />
+              <a
                 href="https://platform.2laps.ai"
                 className="hidden sm:inline-flex items-center text-[12px] font-sans font-600 text-foreground border border-foreground/70 px-4 py-1.5 rounded-full hover:bg-foreground hover:text-background transition-colors duration-150"
               >
@@ -155,56 +128,56 @@ export function TopNav() {
           {/* Mobile menu */}
           {mobileOpen && (
             <nav className="md:hidden border-t border-rule/60 py-3" aria-label="Navegación móvil">
-              <a
+              <Link
                 href="/2day"
                 className="block px-0 py-2.5 text-[13px] font-sans text-ink-secondary hover:text-ink transition-colors"
                 onClick={() => setMobileOpen(false)}
               >
-                Hoy →
-              </a>
-              {NAV_ITEMS.map((item) => (
-                <div key={item}>
-                  <button
-                    onClick={() => {
-                      setActiveTab(item);
-                      if (item !== 'Mercados') setMobileOpen(false);
-                      else setMercadosOpen((v) => !v);
-                    }}
-                    className={cn(
-                      'flex items-center gap-1 w-full text-left px-0 py-2.5 text-[13px] font-sans transition-colors',
-                      activeTab === item ? 'text-ink font-600' : 'text-ink-secondary hover:text-ink'
-                    )}
-                  >
-                    {item}
-                    {item === 'Mercados' && (
-                      <ChevronDown
-                        size={12}
-                        strokeWidth={2}
-                        className={cn(
-                          'transition-transform duration-200 mt-px',
-                          mercadosOpen ? 'rotate-180' : 'rotate-0'
-                        )}
-                      />
-                    )}
-                  </button>
-                  {item === 'Mercados' && mercadosOpen && (
-                    <div className="pl-3 pb-1 border-l border-rule/60 ml-1">
-                      {MERCADOS_ALL.map((m) => (
-                        <button
-                          key={m.label}
-                          className="block w-full text-left py-2 text-[12px] font-sans text-ink-secondary hover:text-ink transition-colors"
-                          onClick={() => {
-                            setMobileOpen(false);
-                            setMercadosOpen(false);
-                          }}
-                        >
-                          {m.label}
-                        </button>
-                      ))}
-                    </div>
+                Para ti →
+              </Link>
+              <div>
+                <button
+                  onClick={() => setMercadosOpen((v) => !v)}
+                  className={cn(
+                    'flex items-center gap-1 w-full text-left px-0 py-2.5 text-[13px] font-sans transition-colors',
+                    mercadosOpen ? 'text-ink font-600' : 'text-ink-secondary hover:text-ink'
                   )}
-                </div>
-              ))}
+                >
+                  Mercados
+                  <ChevronDown
+                    size={12}
+                    strokeWidth={2}
+                    className={cn('transition-transform duration-200 mt-px', mercadosOpen ? 'rotate-180' : 'rotate-0')}
+                  />
+                </button>
+                {mercadosOpen && (
+                  <div className="pl-3 pb-1 border-l border-rule/60 ml-1">
+                    {MERCADOS_ALL.map((m) => (
+                      <button
+                        key={m.label}
+                        className="block w-full text-left py-2 text-[12px] font-sans text-ink-secondary hover:text-ink transition-colors"
+                        onClick={() => { setMobileOpen(false); setMercadosOpen(false); }}
+                      >
+                        {m.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <Link
+                href="/contacto"
+                className="block px-0 py-2.5 text-[13px] font-sans text-ink-secondary hover:text-ink transition-colors"
+                onClick={() => setMobileOpen(false)}
+              >
+                Contacto
+              </Link>
+              <Link
+                href="/nosotros"
+                className="block px-0 py-2.5 text-[13px] font-sans text-ink-secondary hover:text-ink transition-colors"
+                onClick={() => setMobileOpen(false)}
+              >
+                Nosotros
+              </Link>
               <a
                 href="https://platform.2laps.ai"
                 className="block mt-3 text-[12px] font-sans font-600 text-ink border border-ink/70 px-3 py-2 text-center hover:bg-ink hover:text-paper transition-colors"
@@ -245,15 +218,12 @@ export function TopNav() {
                       key={m.label}
                       role="menuitem"
                       className="w-full text-left px-3 py-2.5 rounded hover:bg-muted/60 transition-colors duration-100 group"
-                      onClick={() => {
-                        setActiveTab('Mercados');
-                        setMercadosOpen(false);
-                      }}
+                      onClick={() => setMercadosOpen(false)}
                     >
-                      <span className="block text-[13px] font-sans font-600 text-foreground">
+                      <span className="block text-[13px] font-['Times_New_Roman'] text-foreground">
                         {m.label}
                       </span>
-                      <span className="block text-[11px] font-sans text-muted-foreground mt-0.5">
+                      <span className="block text-[11px] font-['Times_New_Roman'] text-muted-foreground mt-0.5">
                         {m.description}
                       </span>
                     </button>
@@ -272,15 +242,12 @@ export function TopNav() {
                       key={m.label}
                       role="menuitem"
                       className="w-full text-left px-3 py-2.5 rounded hover:bg-muted/60 transition-colors duration-100 group"
-                      onClick={() => {
-                        setActiveTab('Mercados');
-                        setMercadosOpen(false);
-                      }}
+                      onClick={() => setMercadosOpen(false)}
                     >
-                      <span className="block text-[13px] font-sans font-600 text-foreground">
+                      <span className="block text-[13px] font-['Times_New_Roman'] text-foreground">
                         {m.label}
                       </span>
-                      <span className="block text-[11px] font-sans text-muted-foreground mt-0.5">
+                      <span className="block text-[11px] font-['Times_New_Roman'] text-muted-foreground mt-0.5">
                         {m.description}
                       </span>
                     </button>

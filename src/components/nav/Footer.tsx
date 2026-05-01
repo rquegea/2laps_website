@@ -1,25 +1,27 @@
+import Link from 'next/link';
+
 const COLUMNS = [
   {
     title: 'Producto',
     links: [
-      { label: '2day — el feed', href: '/2day' },
-      { label: 'Para ti', href: '/2day' },
-      { label: 'Mercados', href: '#mercados' },
-      { label: 'Plataforma privada', href: 'https://platform.2laps.ai' },
+      { label: '2day — el feed', href: '/2day', external: false },
+      { label: 'Para ti', href: '/2day', external: false },
+      { label: 'Mercados', href: '#mercados', external: false },
+      { label: 'Plataforma privada', href: 'https://platform.2laps.ai', external: true },
     ],
   },
   {
     title: 'Compañía',
     links: [
-      { label: 'Quiénes somos', href: '/nosotros' },
-      { label: 'Contacto', href: '/contacto' },
+      { label: 'Quiénes somos', href: '/nosotros', external: false },
+      { label: 'Contacto', href: '/contacto', external: false },
     ],
   },
   {
     title: 'Legal',
     links: [
-      { label: 'Privacidad', href: '/privacidad' },
-      { label: 'Términos', href: '/terminos' },
+      { label: 'Privacidad', href: '/privacidad', external: false },
+      { label: 'Términos', href: '/terminos', external: false },
     ],
   },
 ];
@@ -34,12 +36,12 @@ export function Footer() {
 
           {/* Brand */}
           <div className="col-span-2 sm:col-span-1">
-            <a
+            <Link
               href="/"
               className="font-['Switzer'] font-semibold text-[18px] tracking-[-0.04em] text-ink"
             >
               2laps
-            </a>
+            </Link>
             <p className="mt-3 text-[13px] font-sans text-ink-secondary leading-relaxed max-w-[200px]">
               Inteligencia del paisaje digital. Presentada como periódico, no como dashboard.
             </p>
@@ -54,12 +56,21 @@ export function Footer() {
               <ul className="space-y-2.5">
                 {col.links.map((link) => (
                   <li key={link.label}>
-                    <a
-                      href={link.href}
-                      className="text-[13px] font-sans text-ink-secondary hover:text-ink transition-colors duration-100"
-                    >
-                      {link.label}
-                    </a>
+                    {link.external ? (
+                      <a
+                        href={link.href}
+                        className="text-[13px] font-['Times_New_Roman'] text-ink-secondary hover:text-ink transition-colors duration-100"
+                      >
+                        {link.label}
+                      </a>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="text-[13px] font-['Times_New_Roman'] text-ink-secondary hover:text-ink transition-colors duration-100"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -78,6 +89,13 @@ export function Footer() {
           >
             Entrar a mi panel →
           </a>
+        </div>
+
+        {/* Imprint */}
+        <div className="mt-8 pt-4 border-t border-rule/40">
+          <p className="font-mono text-[10px] tracking-[0.08em] text-ink-tertiary text-center">
+            T&amp;T
+          </p>
         </div>
 
       </div>
