@@ -12,7 +12,7 @@ const SECTORS = [
 ] as const;
 
 const inputClass =
-  'w-full bg-transparent border border-rule px-4 py-3 text-[14px] font-sans text-ink placeholder:text-ink-tertiary focus:outline-none focus:border-ink transition-colors duration-150';
+  'w-full bg-transparent border border-rule rounded-lg px-4 py-3 text-[14px] font-sans text-ink placeholder:text-ink-tertiary focus:outline-none focus:border-ink transition-colors duration-150';
 
 export function ContactForm() {
   const [selectedSectors, setSelectedSectors] = useState<Set<string>>(new Set());
@@ -128,7 +128,7 @@ export function ContactForm() {
               type="button"
               onClick={() => toggleSector(s)}
               className={cn(
-                'px-3 py-1.5 text-[11px] font-sans border transition-colors duration-100',
+                'px-3 py-1.5 text-[11px] font-sans border rounded-full transition-colors duration-100',
                 selectedSectors.has(s)
                   ? 'bg-ink text-paper border-ink'
                   : 'bg-transparent text-ink-secondary border-rule hover:border-ink hover:text-ink'
@@ -156,7 +156,7 @@ export function ContactForm() {
       <div>
         <button
           type="submit"
-          className="w-full sm:w-auto px-8 py-3 bg-ink text-paper text-[13px] font-sans font-semibold hover:opacity-80 transition-opacity duration-150"
+          className="w-full sm:w-auto px-8 py-3 bg-ink text-paper text-[13px] font-sans font-semibold rounded-full hover:opacity-80 transition-opacity duration-150"
         >
           Enviar →
         </button>
