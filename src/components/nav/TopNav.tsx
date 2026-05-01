@@ -43,7 +43,7 @@ export function TopNav() {
 
   const navLinkClass = (active: boolean) =>
     cn(
-      'px-4 h-14 text-[12px] font-sans font-500 transition-colors duration-100 inline-flex items-center',
+      'px-4 h-14 text-[14px] font-sans font-500 transition-colors duration-100 inline-flex items-center',
       active
         ? 'text-ink font-600 border-b-[1.5px] border-ink'
         : 'text-ink-tertiary hover:text-ink-secondary'
@@ -74,7 +74,7 @@ export function TopNav() {
                 <button
                   onClick={() => setMercadosOpen((v) => !v)}
                   className={cn(
-                    'flex items-center gap-1 px-4 h-14 text-[12px] font-sans font-500 transition-colors duration-100',
+                    'flex items-center gap-1 px-4 h-14 text-[14px] font-sans font-500 transition-colors duration-100',
                     mercadosOpen
                       ? 'text-ink font-600 border-b-[1.5px] border-ink'
                       : 'text-ink-tertiary hover:text-ink-secondary'
@@ -108,7 +108,7 @@ export function TopNav() {
               <ThemeToggle />
               <a
                 href="https://platform.2laps.ai"
-                className="hidden sm:inline-flex items-center text-[12px] font-sans font-600 text-foreground border border-foreground/70 px-4 py-1.5 rounded-full hover:bg-foreground hover:text-background transition-colors duration-150"
+                className="hidden sm:inline-flex items-center text-[14px] font-sans font-600 text-foreground border border-foreground/70 px-4 py-1.5 rounded-full hover:bg-foreground hover:text-background transition-colors duration-150"
               >
                 Entrar →
               </a>
