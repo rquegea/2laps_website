@@ -2,15 +2,24 @@
 @import url('https://fonts.cdnfonts.com/css/switzer');
 @import "tailwindcss";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:is([data-theme="dark"] *));
 
 :root {
-  --background: oklch(0.99 0.002 264);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
+  /* Editorial tokens — newspaper palette */
+  --ink: #0a0a0a;
+  --ink-secondary: #525252;
+  --ink-tertiary: #a3a3a3;
+  --paper: #fafaf7;
+  --paper-elevated: #ffffff;
+  --rule: #e5e5e0;
+
+  /* Shadcn/Radix tokens — linked to editorial where it makes sense */
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: var(--paper-elevated);
+  --card-foreground: var(--ink);
+  --popover: var(--paper-elevated);
+  --popover-foreground: var(--ink);
   --primary: oklch(0.54 0.18 12);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
@@ -21,8 +30,8 @@
   --accent-foreground: oklch(0.30 0.02 264);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
+  --border: var(--rule);
+  --input: var(--rule);
   --ring: oklch(0.54 0.18 12);
   --chart-1: oklch(0.58 0.16 264);
   --chart-2: oklch(0.62 0.14 180);
@@ -36,23 +45,32 @@
   --glow-accent: oklch(0.54 0.18 12 / 0.03);
   --glass-bg: oklch(1 0 0 / 0.85);
   --glass-border: oklch(0.95 0.01 264 / 0.5);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar: var(--paper-elevated);
+  --sidebar-foreground: var(--ink);
   --sidebar-primary: oklch(0.54 0.18 12);
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.97 0 0);
   --sidebar-accent-foreground: oklch(0.54 0.18 12);
-  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-border: var(--rule);
   --sidebar-ring: oklch(0.54 0.18 12);
 }
 
-.dark {
-  --background: oklch(0.145 0.005 264);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.18 0.005 264);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.18 0.005 264);
-  --popover-foreground: oklch(0.985 0 0);
+[data-theme="dark"] {
+  /* Editorial tokens — dark newspaper palette */
+  --ink: #f0efe9;
+  --ink-secondary: #a8a8a3;
+  --ink-tertiary: #6a6a66;
+  --paper: #0e0e0c;
+  --paper-elevated: #1a1a17;
+  --rule: #2a2a25;
+
+  /* Shadcn/Radix tokens */
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: var(--paper-elevated);
+  --card-foreground: var(--ink);
+  --popover: var(--paper-elevated);
+  --popover-foreground: var(--ink);
   --primary: oklch(0.62 0.19 12);
   --primary-foreground: oklch(0.98 0 0);
   --secondary: oklch(0.269 0 0);
@@ -63,26 +81,36 @@
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.55 0.22 25);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.269 0.005 264);
-  --input: oklch(0.269 0.005 264);
+  --border: var(--rule);
+  --input: var(--rule);
   --ring: oklch(0.62 0.19 12);
   --chart-1: oklch(0.62 0.18 264);
   --chart-2: oklch(0.68 0.18 180);
   --chart-3: oklch(0.60 0.16 240);
   --chart-4: oklch(0.72 0.20 85);
   --chart-5: oklch(0.63 0.18 25);
-  --sidebar: oklch(0.18 0.005 264);
-  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar: var(--paper-elevated);
+  --sidebar-foreground: var(--ink);
   --sidebar-primary: oklch(0.62 0.19 12);
   --sidebar-primary-foreground: oklch(0.98 0 0);
   --sidebar-accent: oklch(0.269 0.005 264);
   --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0.005 264);
+  --sidebar-border: var(--rule);
   --sidebar-ring: oklch(0.62 0.19 12);
 }
 
 @theme inline {
   --font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
+
+  /* Editorial color tokens */
+  --color-ink: var(--ink);
+  --color-ink-secondary: var(--ink-secondary);
+  --color-ink-tertiary: var(--ink-tertiary);
+  --color-paper: var(--paper);
+  --color-paper-elevated: var(--paper-elevated);
+  --color-rule: var(--rule);
+
+  /* Shadcn/Radix color tokens */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
