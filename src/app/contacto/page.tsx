@@ -7,25 +7,25 @@ export const metadata = {
   description: 'Habla con el equipo de 2laps. Demo personalizada, auditoría inicial, precio transparente.',
 };
 
-const SECONDARY = [
+const WHAT_INCLUDES = [
   {
-    label: 'PRENSA',
-    desc: 'Para periodistas y analistas del sector.',
-    cta: 'prensa@2laps.ai',
-    href: 'mailto:prensa@2laps.ai',
+    label: 'DEMO PERSONALIZADA',
+    desc: 'Te montamos un 2day con tu marca y tres competidores antes de la llamada.',
   },
   {
-    label: 'PARTNERSHIPS',
-    desc: 'Integraciones, distribución y co-marketing.',
-    cta: 'partners@2laps.ai',
-    href: 'mailto:partners@2laps.ai',
+    label: 'AUDITORÍA INICIAL',
+    desc: 'Te decimos qué señales ya estás dejando sobre la mesa.',
   },
   {
-    label: 'OFICINA',
-    desc: 'Estamos en Madrid.',
-    cta: null,
-    href: null,
+    label: 'PRECIO',
+    desc: 'Transparente desde la primera llamada. Sin tiers ocultos.',
   },
+];
+
+const CONTACT_BLOCKS = [
+  { label: 'OFICINA', value: 'Madrid, España' },
+  { label: 'PRENSA', value: 'prensa@2laps.ai' },
+  { label: 'PARTNERSHIPS', value: 'partners@2laps.ai' },
 ];
 
 export default function ContactoPage() {
@@ -35,121 +35,93 @@ export default function ContactoPage() {
 
       <div className="w-full max-w-7xl mx-auto px-6 sm:px-10">
 
-        {/* ── Hero: título izquierda + cards derecha ── */}
-        <div className="pt-14 pb-0 grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-16 items-start">
-
-          {/* Izquierda — título */}
-          <div className="lg:col-span-2 lg:pt-2">
-            <h1
-              className="font-['Times_New_Roman'] font-normal leading-[1.08] tracking-[-0.01em] text-ink"
-              style={{ fontSize: 'clamp(32px, 3.5vw, 52px)' }}
-            >
-              Hablemos de tu paisaje digital.
-            </h1>
-            <p className="mt-6 font-sans text-[15px] leading-[1.65] text-ink-secondary max-w-[380px]">
-              Si gestionas la marca de una compañía con presencia digital seria, probablemente ya
-              tienes preguntas que nadie en tu equipo resuelve. Cuéntanoslo.
-            </p>
-            <a
-              href="mailto:ventas@2laps.ai"
-              className="mt-8 inline-flex items-center font-mono text-[12px] tracking-[0.06em] text-ink hover:text-ink-secondary transition-colors duration-150"
-            >
-              ventas@2laps.ai →
-            </a>
-          </div>
-
-          {/* Derecha — dos cards */}
-          <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-4 pb-0">
-
-            {/* Card Ventas */}
-            <div className="border border-rule flex flex-col" style={{ minHeight: 300 }}>
-              <div className="p-6 pb-0">
-                <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-tertiary">
-                  Ventas
-                </p>
-              </div>
-              {/* Visual area — espacio generoso con detalle editorial */}
-              <div className="flex-1 flex items-center justify-center px-6 py-10">
-                <div className="text-center">
-                  <p className="font-['Times_New_Roman'] text-[48px] leading-none text-rule select-none">
-                    →
-                  </p>
-                </div>
-              </div>
-              <div className="p-6 pt-0 border-t border-rule mt-4">
-                <p className="font-sans text-[13px] leading-[1.65] text-ink-secondary mt-4">
-                  Para equipos de marketing que quieren una demo con su marca y sus
-                  competidores antes de la primera llamada.
-                </p>
-                <a
-                  href="#formulario"
-                  className="mt-4 inline-flex items-center font-mono text-[11px] tracking-[0.06em] text-ink hover:text-ink-secondary transition-colors"
-                >
-                  Contactar →
-                </a>
-              </div>
-            </div>
-
-            {/* Card Agencias */}
-            <div className="border border-rule flex flex-col" style={{ minHeight: 300 }}>
-              <div className="p-6 pb-0">
-                <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-tertiary">
-                  Agencias
-                </p>
-              </div>
-              <div className="flex-1 flex items-center justify-center px-6 py-10">
-                <div className="text-center">
-                  <p className="font-['Times_New_Roman'] text-[48px] leading-none text-rule select-none">
-                    ×
-                  </p>
-                </div>
-              </div>
-              <div className="p-6 pt-0 border-t border-rule mt-4">
-                <p className="font-sans text-[13px] leading-[1.65] text-ink-secondary mt-4">
-                  Gestiona múltiples marcas desde un solo panel. Cada cliente tiene su
-                  propia edición privada con sus competidores.
-                </p>
-                <a
-                  href="#formulario"
-                  className="mt-4 inline-flex items-center font-mono text-[11px] tracking-[0.06em] text-ink hover:text-ink-secondary transition-colors"
-                >
-                  Contactar →
-                </a>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        {/* ── Items secundarios ── */}
-        <div className="mt-12 pt-8 border-t border-rule/60 grid grid-cols-1 sm:grid-cols-3 gap-8">
-          {SECONDARY.map((s) => (
-            <div key={s.label}>
-              <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-tertiary mb-2">
-                {s.label}
-              </p>
-              <p className="font-sans text-[13px] text-ink-secondary leading-[1.6] mb-2">
-                {s.desc}
-              </p>
-              {s.cta && s.href && (
-                <a
-                  href={s.href}
-                  className="font-mono text-[11px] tracking-[0.04em] text-ink hover:text-ink-secondary transition-colors"
-                >
-                  {s.cta} →
-                </a>
-              )}
-            </div>
-          ))}
-        </div>
-
-        {/* ── Formulario ── */}
-        <div id="formulario" className="mt-12 pt-8 border-t border-rule/60 pb-16">
-          <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-tertiary mb-8">
-            Formulario de contacto
+        {/* Header editorial */}
+        <div className="pt-14 pb-10 border-b border-rule/60">
+          <h1
+            className="font-['Times_New_Roman'] font-normal leading-[1.1] tracking-[-0.01em] text-ink max-w-[680px]"
+            style={{ fontSize: 'clamp(32px, 4vw, 52px)' }}
+          >
+            Hablemos de tu paisaje digital.
+          </h1>
+          <p className="mt-5 font-sans text-[15px] sm:text-[17px] leading-[1.55] text-ink-secondary max-w-[560px]">
+            Si gestionas la marca de una compañía con presencia digital seria, probablemente ya tienes
+            preguntas que nadie en tu equipo resuelve. Cuéntanoslo.
           </p>
-          <div className="max-w-2xl">
+        </div>
+
+        {/* Grid: contexto + formulario */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 py-12">
+
+          {/* Izquierda — contexto */}
+          <div className="space-y-10">
+
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-tertiary mb-3">
+                PARA EQUIPOS DE MARKETING
+              </p>
+              <p className="text-[14px] font-sans text-ink-secondary leading-[1.65]">
+                Si tu marca aparece en SEMrush, en Google Trends, en TikTok y en Search Console — y
+                nadie en tu equipo está correlacionando esas cuatro señales — eso es exactamente lo
+                que 2laps hace por ti.
+              </p>
+            </div>
+
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-tertiary mb-3">
+                PARA AGENCIAS
+              </p>
+              <p className="text-[14px] font-sans text-ink-secondary leading-[1.65]">
+                Gestiona múltiples marcas desde un solo panel. Cada cliente tiene su propia edición
+                privada con sus competidores. El reporting deja de ser un Excel y empieza a ser una
+                redacción.
+              </p>
+            </div>
+
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-tertiary mb-3">
+                QUÉ INCLUYE UNA CONVERSACIÓN CON VENTAS
+              </p>
+              <div className="space-y-0">
+                {WHAT_INCLUDES.map((item, i) => (
+                  <div
+                    key={item.label}
+                    className={`py-4 ${i > 0 ? 'border-t border-rule/60' : ''}`}
+                  >
+                    <p className="font-mono text-[10px] uppercase tracking-[0.1em] text-ink mb-1.5">
+                      {item.label}
+                    </p>
+                    <p className="text-[13px] font-sans text-ink-secondary leading-[1.6]">
+                      {item.desc}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <p className="font-mono text-[11px] text-ink-secondary">
+              ventas@2laps.ai
+            </p>
+          </div>
+
+          {/* Derecha — formulario */}
+          <div>
             <ContactForm />
+          </div>
+        </div>
+
+        {/* Footer editorial del grid */}
+        <div className="border-t border-rule/60 py-10">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+            {CONTACT_BLOCKS.map((b) => (
+              <div key={b.label}>
+                <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-tertiary mb-2">
+                  {b.label}
+                </p>
+                <p className="text-[13px] font-sans text-ink-secondary">
+                  {b.value}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
 
