@@ -2,19 +2,8 @@
 
 import { motion, useReducedMotion } from 'framer-motion';
 import { MacWindow } from '@/components/home/MacWindow';
-import type { Source } from '@/types/story';
-import type { PreviewCard } from '@/components/home/MacWindow';
 
-interface TodayHeroProps {
-  headline: string;
-  deck: string;
-  sources: Source[];
-  timeAgo: string;
-  formattedDate: string;
-  previewStories: PreviewCard[];
-}
-
-export function TodayHero({ headline, deck, sources, timeAgo, formattedDate, previewStories }: TodayHeroProps) {
+export function TodayHero() {
   const reduced = useReducedMotion();
   const t = (d: number) => ({ duration: reduced ? 0 : 0.5, ease: 'easeOut' as const, delay: reduced ? 0 : d });
   const fadeUp = { hidden: { opacity: 0, y: reduced ? 0 : 8 }, visible: { opacity: 1, y: 0 } };
@@ -55,7 +44,7 @@ export function TodayHero({ headline, deck, sources, timeAgo, formattedDate, pre
         </div>
       </div>
 
-      {/* ── Mac preview — full-width black section ── */}
+      {/* ── Mac portal — live /2day inside a draggable window ── */}
       <motion.div
         variants={fadeUp}
         initial="hidden"
@@ -70,17 +59,8 @@ export function TodayHero({ headline, deck, sources, timeAgo, formattedDate, pre
         }}
       >
         <div className="absolute inset-0 bg-black/50" />
-
-        {/* Tighter padding so the Mac window has more room */}
         <div className="relative h-full max-w-none mx-auto px-4 sm:px-8 py-10 sm:py-14">
-          <MacWindow
-            headline={headline}
-            deck={deck}
-            sources={sources}
-            timeAgo={timeAgo}
-            formattedDate={formattedDate}
-            previewStories={previewStories}
-          />
+          <MacWindow />
         </div>
       </motion.div>
 

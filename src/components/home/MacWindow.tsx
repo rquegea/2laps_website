@@ -1,34 +1,20 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { SourceChips } from '@/components/stories/SourceChips';
-import type { Source } from '@/types/story';
-
-export interface PreviewCard {
-  label: string;
-  title: string;
-}
-
-interface MacWindowProps {
-  headline: string;
-  deck: string;
-  sources: Source[];
-  timeAgo: string;
-  formattedDate: string;
-  previewStories?: PreviewCard[];
-}
 
 const MARGIN = 16;
 const MIN_W = 380;
 const MIN_H = 280;
 const TITLE_H = 44;
 const DEFAULT_W = 820;
-const DEFAULT_H = 504;
+const DEFAULT_H = 560;
+// Virtual width of /2day at full desktop size — iframe is scaled to fit the window
+const IFRAME_VIRTUAL_W = 1280;
 
 type WindowState = 'open' | 'minimized' | 'closed';
 type Handle = 'n' | 's' | 'e' | 'w' | 'ne' | 'nw' | 'se' | 'sw';
 
-export function MacWindow({ headline, deck, sources, timeAgo, formattedDate, previewStories }: MacWindowProps) {
+export function MacWindow() {
   const [windowState, setWindowState] = useState<WindowState>('open');
   const [hoveredBtn, setHoveredBtn] = useState<'red' | 'yellow' | 'green' | null>(null);
   const [pos, setPos] = useState({ x: 0, y: 0 });
@@ -103,13 +89,9 @@ export function MacWindow({ headline, deck, sources, timeAgo, formattedDate, pre
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
     setResizing(true);
     resizeStart.current = {
-      handle,
-      mx: e.clientX,
-      my: e.clientY,
-      left: pos.x,
-      top: pos.y,
-      right: pos.x + size.w,
-      bottom: pos.y + size.h,
+      handle, mx: e.clientX, my: e.clientY,
+      left: pos.x, top: pos.y,
+      right: pos.x + size.w, bottom: pos.y + size.h,
     };
   }, [pos, size]);
 
@@ -148,6 +130,11 @@ export function MacWindow({ headline, deck, sources, timeAgo, formattedDate, pre
     });
   }, []);
 
+  // Scale /2day to fit the current window width
+  const contentH = size.h - TITLE_H;
+  const scale = size.w / IFRAME_VIRTUAL_W;
+  const iframeH = contentH / scale;
+
   return (
     <div ref={wrapperRef} className="relative w-full h-full">
       {windowState === 'closed' ? (
@@ -163,14 +150,13 @@ export function MacWindow({ headline, deck, sources, timeAgo, formattedDate, pre
         <div
           style={{
             position: 'absolute',
-            left: pos.x,
-            top: pos.y,
+            left: pos.x, top: pos.y,
             width: size.w,
             height: windowState === 'open' ? size.h : TITLE_H,
           }}
           className="rounded-2xl overflow-hidden shadow-[0_32px_80px_-12px_rgba(0,0,0,0.8),0_0_0_1px_rgba(255,255,255,0.08)] transition-[height] duration-300"
         >
-          {/* Title bar — Mac chrome, never changes with theme */}
+          {/* Title bar — Mac chrome */}
           <div
             onPointerDown={onTitleDown}
             onPointerMove={onTitleMove}
@@ -206,43 +192,30 @@ export function MacWindow({ headline, deck, sources, timeAgo, formattedDate, pre
               </button>
             </div>
             <span className="flex-1 text-center text-[12px] font-medium text-white/40 -ml-14 select-none pointer-events-none">
-              2laps — Feed del día
+              2laps.ai/2day
             </span>
           </div>
 
-          {/* Content — uses semantic tokens, responds to dark mode */}
+          {/* Live /2day portal — scaled to fit */}
           <div
-            className="bg-paper overflow-y-auto"
-            style={{ height: windowState === 'open' ? size.h - TITLE_H : 0 }}
+            className="overflow-hidden bg-background"
+            style={{ height: windowState === 'open' ? contentH : 0 }}
           >
-            <div className="p-6 sm:p-8">
-              <div className="flex items-baseline justify-between border-b border-rule pb-3 mb-6">
-                <span className="font-['Switzer'] font-semibold text-[15px] tracking-[-0.03em] text-ink">2laps</span>
-                <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-ink-tertiary">{formattedDate}</span>
-              </div>
-              <div className="mb-6 pb-6 border-b border-rule">
-                <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-ink-tertiary mb-2">BREAKING · RETAIL</p>
-                <a href="/2day" className="block group">
-                  <h2 className="font-serif font-bold text-[20px] sm:text-[22px] leading-[1.15] text-ink group-hover:opacity-70 transition-opacity">
-                    {headline}
-                  </h2>
-                </a>
-                <p className="mt-2 text-[13px] leading-[1.55] text-ink-secondary line-clamp-2">{deck}</p>
-                <div className="mt-3 flex items-center gap-3">
-                  <SourceChips sources={sources} size="sm" />
-                  <span className="text-[11px] text-ink-tertiary">·</span>
-                  <span className="text-[11px] font-mono text-ink-tertiary">{timeAgo}</span>
-                </div>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                {(previewStories ?? []).slice(0, 3).map((s) => (
-                  <div key={s.title} className="border-t border-rule pt-3">
-                    <p className="font-mono text-[9px] uppercase tracking-[0.1em] text-ink-tertiary mb-1.5">{s.label}</p>
-                    <p className="font-serif text-[13px] leading-[1.3] text-ink line-clamp-3">{s.title}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+            {windowState === 'open' && (
+              <iframe
+                src="/2day"
+                title="2laps — Feed del día"
+                style={{
+                  width: IFRAME_VIRTUAL_W,
+                  height: iframeH,
+                  transform: `scale(${scale})`,
+                  transformOrigin: 'top left',
+                  border: 'none',
+                  display: 'block',
+                  pointerEvents: dragging || resizing ? 'none' : 'auto',
+                }}
+              />
+            )}
           </div>
 
           {/* Resize handles */}
