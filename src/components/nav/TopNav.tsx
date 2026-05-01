@@ -220,10 +220,10 @@ export function TopNav() {
                       className="w-full text-left px-3 py-2.5 rounded hover:bg-muted/60 transition-colors duration-100 group"
                       onClick={() => setMercadosOpen(false)}
                     >
-                      <span className="block text-[13px] font-['Times_New_Roman'] text-foreground">
+                      <span className="block text-[13px] font-['Switzer'] font-semibold text-foreground">
                         {m.label}
                       </span>
-                      <span className="block text-[11px] font-['Times_New_Roman'] text-muted-foreground mt-0.5">
+                      <span className="block text-[11px] font-sans font-normal text-muted-foreground mt-0.5">
                         {m.description}
                       </span>
                     </button>
@@ -244,10 +244,10 @@ export function TopNav() {
                       className="w-full text-left px-3 py-2.5 rounded hover:bg-muted/60 transition-colors duration-100 group"
                       onClick={() => setMercadosOpen(false)}
                     >
-                      <span className="block text-[13px] font-['Times_New_Roman'] text-foreground">
+                      <span className="block text-[13px] font-['Switzer'] font-semibold text-foreground">
                         {m.label}
                       </span>
-                      <span className="block text-[11px] font-['Times_New_Roman'] text-muted-foreground mt-0.5">
+                      <span className="block text-[11px] font-sans font-normal text-muted-foreground mt-0.5">
                         {m.description}
                       </span>
                     </button>
@@ -270,7 +270,7 @@ export function TopNav() {
                 </div>
                 <a
                   href="https://platform.2laps.ai"
-                  className="mt-4 inline-flex items-center gap-1.5 text-[12px] font-sans font-600 text-foreground border border-border px-4 py-2 hover:bg-muted transition-colors duration-150 self-start"
+                  className="mt-4 inline-flex items-center gap-1.5 text-[12px] font-sans font-600 text-foreground border border-border px-4 py-2 rounded-full hover:bg-muted transition-colors duration-150 self-start"
                 >
                   Personalizar <ArrowRight size={12} />
                 </a>
