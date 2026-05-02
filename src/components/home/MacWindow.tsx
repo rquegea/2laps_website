@@ -6,8 +6,8 @@ const MARGIN = 16;
 const MIN_W = 380;
 const MIN_H = 280;
 const TITLE_H = 44;
-const DEFAULT_W = 820;
-const DEFAULT_H = 560;
+const DEFAULT_W = 960;
+const DEFAULT_H = 680;
 // Virtual width of /2day at full desktop size — iframe is scaled to fit the window
 const IFRAME_VIRTUAL_W = 1280;
 
@@ -162,7 +162,7 @@ export function MacWindow() {
             onPointerMove={onTitleMove}
             onPointerUp={onTitleUp}
             onPointerCancel={onTitleUp}
-            className={`flex items-center gap-2 px-4 bg-[#1c1c1e] border-b border-white/[0.07] select-none touch-none ${dragging ? 'cursor-grabbing' : 'cursor-grab'}`}
+            className={`flex items-center gap-2 px-4 bg-[#ececec] border-b border-black/[0.08] select-none touch-none ${dragging ? 'cursor-grabbing' : 'cursor-grab'}`}
             style={{ height: TITLE_H }}
           >
             <div className="flex items-center gap-1.5" onMouseLeave={() => setHoveredBtn(null)}>
@@ -191,9 +191,20 @@ export function MacWindow() {
                 {hoveredBtn === 'green' && <span className="text-[7px] text-[#003d00] font-bold leading-none">↺</span>}
               </button>
             </div>
-            <span className="flex-1 text-center text-[12px] font-medium text-white/40 -ml-14 select-none pointer-events-none">
-              2laps.ai/2day
-            </span>
+            <div className="flex-1 flex flex-col items-center justify-center -ml-14 select-none pointer-events-none gap-0.5">
+              <span
+                className="text-[14px] font-semibold text-black/70 leading-none tracking-tight"
+                style={{ fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif' }}
+              >
+                2day
+              </span>
+              <span
+                className="text-[10px] text-black/35 leading-none"
+                style={{ fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif' }}
+              >
+                2laps.ai
+              </span>
+            </div>
           </div>
 
           {/* Live /2day portal — scaled to fit */}

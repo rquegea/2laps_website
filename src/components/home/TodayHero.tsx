@@ -16,14 +16,20 @@ export function TodayHero() {
         <div className="max-w-[1500px] mx-auto w-full px-6 sm:px-10 pt-14 pb-10">
           <motion.div variants={fadeUp} initial="hidden" animate="visible" transition={t(0)}>
             <h1
-              className="font-serif leading-[1.1] tracking-[-0.02em] text-foreground max-w-[680px]"
-              style={{ fontSize: 'clamp(32px, 4vw, 52px)' }}
+              className="leading-[1.1] tracking-[-0.02em] max-w-[900px]"
+              style={{
+                fontSize: 'clamp(36px, 4.5vw, 58px)',
+                fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif',
+                color: '#3a3a3a',
+              }}
             >
-              Agentes que unifican todo tu Marketing Digital.
+              Todo lo que afecta a tu marca hoy.<br />
+              Sin ruido, sin dashboards,<br />
+              sin perder el tiempo.
             </h1>
 
-            <p className="mt-5 font-sans font-normal text-[15px] sm:text-[17px] leading-[1.55] text-ink-secondary max-w-[560px]">
-              El paisaje digital de tu marca, monitorizado y traducido en inteligencia accionable.
+            <p className="mt-5 font-sans font-normal text-[15px] sm:text-[17px] leading-[1.55] text-ink-secondary max-w-[580px]">
+              2laps monitoriza tu entorno digital — SEO, IA, redes, medios y analítica web — y te lo entrega en titulares accionables.
             </p>
 
             <div className="mt-8 flex flex-col sm:flex-row gap-3">
@@ -37,7 +43,7 @@ export function TodayHero() {
                 href="/contacto"
                 className="inline-flex items-center justify-center px-6 py-3 border border-foreground text-foreground text-[14px] font-medium rounded-full hover:bg-foreground hover:text-background transition-colors duration-150"
               >
-                Contactar con ventas →
+                Hablar con el equipo →
               </a>
             </div>
           </motion.div>
@@ -53,13 +59,13 @@ export function TodayHero() {
         className="w-full rounded-2xl mx-auto max-w-[1500px] mb-12 sm:mb-16 overflow-hidden relative"
         style={{
           height: '820px',
-          backgroundImage: "url('/wallpaper2day1.jpg')",
+          backgroundImage: "url('/Dark_romantic_oil_painting,_abstract_202605021321.jpeg')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       >
         <div className="absolute inset-0 bg-black/50" />
-        <div className="relative h-full max-w-none mx-auto px-4 sm:px-8 py-10 sm:py-14">
+        <div className="relative h-full max-w-none mx-auto px-4 sm:px-8 py-4 sm:py-5">
           <MacWindow />
         </div>
       </motion.div>

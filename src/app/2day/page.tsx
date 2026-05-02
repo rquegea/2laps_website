@@ -55,6 +55,18 @@ export default function Page() {
     <div className="min-h-screen bg-background">
       {!embed && <TopNav />}
 
+      {/* Embed-mode compact header */}
+      {embed && (
+        <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 pt-5 pb-3">
+          <h1
+            className="text-3xl font-semibold text-foreground leading-none tracking-tight"
+            style={{ fontFamily: 'Times New Roman, Times, serif' }}
+          >
+            2day
+          </h1>
+        </div>
+      )}
+
       {/* Title + Tabs */}
       {!embed && <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 pt-5 sm:pt-8 pb-3 sm:pb-4">
         <h1 className="text-2xl sm:text-4xl md:text-5xl font-serif font-medium text-foreground leading-tight tracking-tight">
