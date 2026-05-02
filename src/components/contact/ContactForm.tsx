@@ -6,9 +6,9 @@ import { cn } from '@/lib/utils';
 const TEAM_SIZES = ['1–10', '11–50', '51–200', '200+'] as const;
 
 const SECTORS = [
-  'Retail', 'Banca y Finanzas', 'Turismo', 'Tech',
-  'Automoción', 'Alimentación', 'Moda', 'Farma y Salud',
-  'Energía', 'Telecomunicaciones',
+  'Retail', 'Banca y Finanzas', 'Seguros', 'Turismo',
+  'Tech', 'Telecomunicaciones', 'Automoción', 'Alimentación y Gran Consumo',
+  'Moda', 'Farma y Salud', 'Energía', 'Inmobiliario', 'Medios y Entretenimiento',
 ] as const;
 
 const inputClass =
@@ -16,6 +16,8 @@ const inputClass =
 
 export function ContactForm() {
   const [selectedSectors, setSelectedSectors] = useState<Set<string>>(new Set());
+  const [otroSelected, setOtroSelected] = useState(false);
+  const [otroValue, setOtroValue] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
   function toggleSector(s: string) {
@@ -27,10 +29,23 @@ export function ContactForm() {
     });
   }
 
+  function toggleOtro() {
+    setOtroSelected((v) => {
+      if (v) setOtroValue('');
+      return !v;
+    });
+  }
+
+  function getAllSectors() {
+    const all = [...selectedSectors];
+    if (otroSelected && otroValue.trim()) all.push(`Otro: ${otroValue.trim()}`);
+    return all;
+  }
+
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(e.currentTarget));
-    console.log('Contact form submission:', { ...data, sectors: [...selectedSectors] });
+    console.log('Contact form submission:', { ...data, sectors: getAllSectors() });
     setSubmitted(true);
   }
 
@@ -137,8 +152,30 @@ export function ContactForm() {
               {s}
             </button>
           ))}
+          <button
+            type="button"
+            onClick={toggleOtro}
+            className={cn(
+              'px-3 py-1.5 text-[11px] font-sans border rounded-full transition-colors duration-100',
+              otroSelected
+                ? 'bg-ink text-paper border-ink'
+                : 'bg-transparent text-ink-secondary border-rule hover:border-ink hover:text-ink'
+            )}
+          >
+            Otro
+          </button>
         </div>
-        <input type="hidden" name="sectors" value={[...selectedSectors].join(',')} />
+        {otroSelected && (
+          <input
+            type="text"
+            value={otroValue}
+            onChange={(e) => setOtroValue(e.target.value)}
+            placeholder="Indica tu sector"
+            className={cn(inputClass, 'mt-2')}
+            autoFocus
+          />
+        )}
+        <input type="hidden" name="sectors" value={getAllSectors().join(',')} />
       </div>
 
       <div>

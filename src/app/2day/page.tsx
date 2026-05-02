@@ -22,7 +22,20 @@ export default function Page() {
   const calendarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setEmbed(new URLSearchParams(window.location.search).get('embed') === '1');
+    const isEmbed = new URLSearchParams(window.location.search).get('embed') === '1';
+    setEmbed(isEmbed);
+    if (!isEmbed) return;
+    function handleMessage(e: MessageEvent) {
+      if (e.data?.type === '2laps-theme') {
+        if (e.data.theme === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+          document.documentElement.removeAttribute('data-theme');
+        }
+      }
+    }
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
   }, []);
 
   useEffect(() => {
@@ -60,7 +73,7 @@ export default function Page() {
         <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 pt-5 pb-3">
           <h1
             className="text-3xl font-semibold text-foreground leading-none tracking-tight"
-            style={{ fontFamily: 'Times New Roman, Times, serif' }}
+            style={{ fontFamily: 'Switzer, Helvetica Neue, Arial, sans-serif' }}
           >
             2day
           </h1>
@@ -69,7 +82,7 @@ export default function Page() {
 
       {/* Title + Tabs */}
       {!embed && <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 pt-5 sm:pt-8 pb-3 sm:pb-4">
-        <h1 className="text-2xl sm:text-4xl md:text-5xl font-serif font-medium text-foreground leading-tight tracking-tight">
+        <h1 className="font-['Switzer'] font-medium text-foreground leading-[1] tracking-[-0.04em]" style={{ fontSize: 'clamp(36px, 4.5vw, 56px)' }}>
           2day
         </h1>
         <div className="mt-3 sm:mt-4 flex items-end justify-between border-b border-border">

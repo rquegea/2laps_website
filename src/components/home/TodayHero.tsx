@@ -1,12 +1,43 @@
 'use client';
 
+import { useState, useRef, useEffect } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { MacWindow } from '@/components/home/MacWindow';
 
+const LIGHT_IMG = "url('/_Make_a_lighter_version_of_202605021335.jpeg')";
+const DARK_IMG = "url('/Dark_romantic_oil_painting,_abstract_202605021321.jpeg')";
+
 export function TodayHero() {
   const reduced = useReducedMotion();
+  const [isDark, setIsDark] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [parallaxY, setParallaxY] = useState(0);
+
+  // Track theme changes
+  useEffect(() => {
+    const check = () => setIsDark(document.documentElement.getAttribute('data-theme') === 'dark');
+    check();
+    const observer = new MutationObserver(check);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    return () => observer.disconnect();
+  }, []);
+
+  // Parallax on scroll — background moves at 30% of scroll speed
+  useEffect(() => {
+    if (reduced) return;
+    const handleScroll = () => {
+      const el = containerRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      setParallaxY(-rect.top * 0.3);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [reduced]);
+
   const t = (d: number) => ({ duration: reduced ? 0 : 0.5, ease: 'easeOut' as const, delay: reduced ? 0 : d });
   const fadeUp = { hidden: { opacity: 0, y: reduced ? 0 : 8 }, visible: { opacity: 1, y: 0 } };
+  const bgTransition = reduced ? 'none' : 'opacity 800ms ease-in-out';
 
   return (
     <main className="flex-1 flex flex-col">
@@ -16,11 +47,10 @@ export function TodayHero() {
         <div className="max-w-[1500px] mx-auto w-full px-6 sm:px-10 pt-14 pb-10">
           <motion.div variants={fadeUp} initial="hidden" animate="visible" transition={t(0)}>
             <h1
-              className="leading-[1.1] tracking-[-0.02em] max-w-[900px]"
+              className="leading-[1.1] tracking-[-0.02em] max-w-[900px] text-foreground"
               style={{
                 fontSize: 'clamp(36px, 4.5vw, 58px)',
-                fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif',
-                color: '#3a3a3a',
+                fontFamily: 'Switzer, Helvetica Neue, Helvetica, Arial, sans-serif',
               }}
             >
               Todo lo que afecta a tu marca hoy.<br />
@@ -50,20 +80,37 @@ export function TodayHero() {
         </div>
       </div>
 
-      {/* ── Mac portal — live /2day inside a draggable window ── */}
+      {/* ── Mac portal with crossfade background ── */}
       <motion.div
+        ref={containerRef}
         variants={fadeUp}
         initial="hidden"
         animate="visible"
         transition={t(0.25)}
         className="w-full rounded-2xl mx-auto max-w-[1500px] mb-12 sm:mb-16 overflow-hidden relative"
-        style={{
-          height: '820px',
-          backgroundImage: "url('/Dark_romantic_oil_painting,_abstract_202605021321.jpeg')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
+        style={{ height: '820px' }}
       >
+        {/* Light mode background */}
+        <div
+          className="absolute inset-0 bg-cover"
+          style={{
+            backgroundImage: LIGHT_IMG,
+            backgroundPosition: `center calc(50% + ${parallaxY}px)`,
+            opacity: isDark ? 1 : 0,
+            transition: bgTransition,
+          }}
+        />
+        {/* Dark mode background — crossfades on top */}
+        <div
+          className="absolute inset-0 bg-cover"
+          style={{
+            backgroundImage: DARK_IMG,
+            backgroundPosition: `center calc(50% + ${parallaxY}px)`,
+            opacity: isDark ? 0 : 1,
+            transition: bgTransition,
+          }}
+        />
+
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative h-full max-w-none mx-auto px-4 sm:px-8 py-4 sm:py-5">
           <MacWindow />

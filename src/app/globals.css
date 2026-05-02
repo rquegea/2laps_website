@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&display=swap');
 @import url('https://fonts.cdnfonts.com/css/switzer');
 @import "tailwindcss";
 
@@ -192,6 +193,17 @@
 @keyframes zoom-out-95 { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(0.95); } }
 @keyframes slide-in-from-top-2 { from { transform: translateY(-8px); } to { transform: translateY(0); } }
 @keyframes slide-in-from-bottom-2 { from { transform: translateY(8px); } to { transform: translateY(0); } }
+
+/* Global color transition during day↔night theme change */
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition: color 800ms ease-in-out,
+              background-color 800ms ease-in-out,
+              border-color 800ms ease-in-out,
+              fill 800ms ease-in-out,
+              stroke 800ms ease-in-out !important;
+}
 
 .animate-in { animation-duration: 150ms; animation-fill-mode: both; }
 .animate-out { animation-duration: 100ms; animation-fill-mode: both; }

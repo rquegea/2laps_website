@@ -36,10 +36,10 @@ export default function NosotrosPage() {
         {/* Hero editorial */}
         <div className="pt-14 pb-12 border-b border-rule/60">
           <h1
-            className="font-['Times_New_Roman'] font-normal leading-[1.1] tracking-[-0.01em] text-ink max-w-[800px]"
-            style={{ fontSize: 'clamp(30px, 4vw, 52px)' }}
+            className="font-['Switzer'] font-normal leading-[1.1] tracking-[-0.01em] text-ink max-w-[800px]"
+            style={{ fontSize: 'clamp(36px, 4.5vw, 56px)' }}
           >
-            El marketing digital se rompió en doce pestañas. Lo estamos volviendo a juntar.
+            El marketing digital se rompió en doce pestañas.<br />Lo estamos volviendo a juntar.
           </h1>
           <p className="mt-6 font-sans text-[15px] sm:text-[17px] leading-[1.65] text-ink-secondary max-w-[680px]">
             SEMrush en una. Search Console en otra. Brandwatch en otra. Meta Ads en otra. Google Trends
@@ -51,7 +51,10 @@ export default function NosotrosPage() {
         {/* Sección "El problema" */}
         <div className="py-14 border-b border-rule/60">
           <div className="max-w-[680px] space-y-6">
-            <h2 className="font-['Switzer'] font-semibold text-[24px] leading-[1.2] text-ink">
+            <h2
+              className="font-['Switzer'] font-normal leading-[1.2] text-ink"
+              style={{ fontSize: 'clamp(26px, 2.5vw, 34px)' }}
+            >
               El problema que nadie resuelve
             </h2>
             <p className="font-sans text-[15px] leading-[1.75] text-ink-secondary">
@@ -65,10 +68,18 @@ export default function NosotrosPage() {
               intentando correlacionar manualmente lo que ninguna herramienta correlaciona por ellos.
               Y la mayoría de las veces, la historia se va sin que nadie la haya leído.
             </p>
+          </div>
 
-            {/* Pull quote */}
-            <blockquote className="my-10 py-6 border-t border-b border-ink/20">
-              <p className="font-serif italic text-[22px] sm:text-[26px] leading-[1.35] text-ink">
+          {/* Pull quote */}
+          <div
+            className="mt-12 px-8 sm:px-16 py-12 sm:py-16 rounded-2xl border border-ink/15 transition-transform duration-300 ease-out hover:scale-[1.02] cursor-default"
+            style={{ backgroundColor: '#f5f0e8' }}
+          >
+            <blockquote>
+              <p
+                className="font-['Newsreader'] italic leading-[1.4] text-ink max-w-[760px]"
+                style={{ fontSize: 'clamp(22px, 2.5vw, 30px)' }}
+              >
                 "Cuando Lidl pierde 47 featured snippets, la causa no está en SEO. Está en que su
                 schema markup no se desplegó. Eso solo lo ves si miras los dos canales a la vez."
               </p>
@@ -78,7 +89,10 @@ export default function NosotrosPage() {
 
         {/* Diagrama de correlación */}
         <div className="py-14 border-b border-rule/60">
-          <h2 className="font-['Switzer'] font-semibold text-[22px] leading-[1.2] text-ink mb-2">
+          <h2
+            className="font-['Switzer'] font-normal leading-[1.2] text-ink mb-2"
+            style={{ fontSize: 'clamp(26px, 2.5vw, 34px)' }}
+          >
             De señales a titulares
           </h2>
           <p className="font-sans text-[14px] text-ink-secondary mb-10 max-w-[480px]">
@@ -90,25 +104,33 @@ export default function NosotrosPage() {
 
         {/* Cómo funciona */}
         <div className="py-14 border-b border-rule/60">
-          <h2 className="font-['Switzer'] font-semibold text-[22px] leading-[1.2] text-ink mb-10">
+          <h2
+            className="font-['Switzer'] font-normal leading-[1.2] text-ink mb-10"
+            style={{ fontSize: 'clamp(26px, 2.5vw, 34px)' }}
+          >
             Cómo funciona en una página
           </h2>
           <div className="space-y-0">
             {HOW_SECTIONS.map((s, i) => (
               <div
                 key={s.num}
-                className={`flex gap-8 py-8 ${i > 0 ? 'border-t border-rule/60' : ''}`}
+                className={`relative flex gap-8 py-10 ${i > 0 ? 'border-t border-rule/60' : ''}`}
               >
-                <div className="shrink-0 w-12">
-                  <span className="font-serif text-[40px] leading-none font-bold text-ink-tertiary select-none">
+                {/* Decorative number — typographic background element */}
+                <div className="shrink-0 w-20 flex items-start">
+                  <span
+                    className="font-['Newsreader'] font-normal leading-none select-none"
+                    style={{ fontSize: 'clamp(64px, 6vw, 80px)', color: '#e5e5e0' }}
+                    aria-hidden="true"
+                  >
                     {s.num}
                   </span>
                 </div>
-                <div className="max-w-[600px]">
+                <div className="max-w-[600px] pt-2">
                   <h3 className="font-['Switzer'] font-semibold text-[18px] leading-[1.3] text-ink mb-3">
                     {s.title}
                   </h3>
-                  <p className="font-sans text-[14px] leading-[1.75] text-ink-secondary">
+                  <p className="font-sans text-[17px] leading-[1.75] text-ink-secondary">
                     {s.body}
                   </p>
                 </div>
@@ -120,10 +142,13 @@ export default function NosotrosPage() {
         {/* Quién está detrás */}
         <div className="py-14 border-b border-rule/60">
           <div className="max-w-[680px]">
-            <h2 className="font-['Switzer'] font-semibold text-[22px] leading-[1.2] text-ink mb-6">
+            <h2
+              className="font-['Switzer'] font-normal leading-[1.2] text-ink mb-6"
+              style={{ fontSize: 'clamp(26px, 2.5vw, 34px)' }}
+            >
               Quién está detrás
             </h2>
-            <p className="font-serif italic text-[17px] leading-[1.75] text-ink-secondary">
+            <p className="text-[17px] leading-[1.75] text-ink-secondary" style={{ fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif' }}>
               2laps lo construye un equipo pequeño que ha pasado los últimos diez años en agencias y
               en producto, viendo cómo los CMOs abrían doce pestañas para responder una sola pregunta.
               Sabíamos que el problema no era la falta de datos — era la falta de correlación entre
@@ -143,15 +168,15 @@ export default function NosotrosPage() {
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
               href="/2day"
-              className="inline-flex items-center justify-center px-6 py-3 bg-ink text-paper text-[14px] font-semibold hover:opacity-80 transition-opacity duration-150"
+              className="inline-flex items-center justify-center px-6 py-3 bg-foreground text-background text-[14px] font-semibold rounded-full hover:bg-background hover:text-foreground border border-foreground transition-colors duration-150"
             >
               Leer 2day →
             </Link>
             <Link
               href="/contacto"
-              className="inline-flex items-center justify-center px-6 py-3 border border-ink text-ink text-[14px] font-medium hover:bg-ink hover:text-paper transition-colors duration-150"
+              className="inline-flex items-center justify-center px-6 py-3 border border-foreground text-foreground text-[14px] font-medium rounded-full hover:bg-foreground hover:text-background transition-colors duration-150"
             >
-              Hablar con ventas →
+              Hablar con el equipo →
             </Link>
           </div>
         </div>

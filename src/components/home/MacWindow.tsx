@@ -23,6 +23,7 @@ export function MacWindow() {
   const [resizing, setResizing] = useState(false);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
   const dragStart = useRef<{ mx: number; my: number; px: number; py: number } | null>(null);
   const resizeStart = useRef<
     { handle: Handle; mx: number; my: number; left: number; top: number; right: number; bottom: number } | null
@@ -56,6 +57,17 @@ export function MacWindow() {
     const ro = new ResizeObserver(positionWindow);
     ro.observe(wrapper);
     return () => ro.disconnect();
+  }, []);
+
+  // Sync parent theme to iframe via postMessage
+  useEffect(() => {
+    const send = () => {
+      const theme = document.documentElement.getAttribute('data-theme') ?? 'light';
+      iframeRef.current?.contentWindow?.postMessage({ type: '2laps-theme', theme }, window.location.origin);
+    };
+    const observer = new MutationObserver(send);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    return () => observer.disconnect();
   }, []);
 
   const onTitleDown = useCallback((e: React.PointerEvent) => {
@@ -209,23 +221,37 @@ export function MacWindow() {
 
           {/* Live /2day portal — scaled to fit */}
           <div
-            className="overflow-hidden bg-background"
+            className="overflow-hidden bg-background relative"
             style={{ height: windowState === 'open' ? contentH : 0 }}
           >
             {windowState === 'open' && (
-              <iframe
-                src="/2day?embed=1"
-                title="2laps — Feed del día"
-                style={{
-                  width: IFRAME_VIRTUAL_W,
-                  height: iframeH,
-                  transform: `scale(${scale})`,
-                  transformOrigin: 'top left',
-                  border: 'none',
-                  display: 'block',
-                  pointerEvents: dragging || resizing ? 'none' : 'auto',
-                }}
-              />
+              <>
+                <iframe
+                  ref={iframeRef}
+                  src="/2day?embed=1"
+                  title="2laps — Feed del día"
+                  onLoad={() => {
+                    const theme = document.documentElement.getAttribute('data-theme') ?? 'light';
+                    iframeRef.current?.contentWindow?.postMessage({ type: '2laps-theme', theme }, window.location.origin);
+                  }}
+                  style={{
+                    width: IFRAME_VIRTUAL_W,
+                    height: iframeH,
+                    transform: `scale(${scale})`,
+                    transformOrigin: 'top left',
+                    border: 'none',
+                    display: 'block',
+                    pointerEvents: 'none',
+                  }}
+                />
+                {/* Transparent overlay — click navigates to /2day */}
+                <a
+                  href="/2day"
+                  aria-label="Abrir 2day"
+                  className="absolute inset-0 z-10 cursor-pointer"
+                  style={{ pointerEvents: dragging || resizing ? 'none' : 'auto' }}
+                />
+              </>
             )}
           </div>
 

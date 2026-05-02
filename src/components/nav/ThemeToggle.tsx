@@ -45,8 +45,10 @@ export function ThemeToggle() {
     const next = !isDark;
     setIsDark(next);
     setUserOverride(true);
+    document.documentElement.classList.add('theme-transitioning');
     applyTheme(next);
     localStorage.setItem('2laps-theme', next ? 'dark' : 'light');
+    setTimeout(() => document.documentElement.classList.remove('theme-transitioning'), 800);
   }
 
   // suppress unused variable warning
