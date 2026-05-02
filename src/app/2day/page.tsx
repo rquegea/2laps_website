@@ -19,6 +19,7 @@ export default function Page() {
   const [activeTab, setActiveTab] = useState<'daily' | 'favorites'>('daily');
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
   const [calendarOpen, setCalendarOpen] = useState(false);
+  const [mvpPeriod, setMvpPeriod] = useState<'7d' | '30d' | '90d'>('7d');
   const calendarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -141,10 +142,10 @@ export default function Page() {
 
       {activeTab === 'daily' ? (
         <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 pb-8 sm:pb-12 pt-4">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+          <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
 
-            {/* Main — 9 cols */}
-            <main className="lg:col-span-9 min-w-0 space-y-6 sm:space-y-8">
+            {/* Main — scrolls with page */}
+            <main className="min-w-0 flex-1 space-y-6 sm:space-y-8">
               {(() => {
                 const sections: React.ReactNode[] = [];
                 let index = 0;
@@ -179,18 +180,108 @@ export default function Page() {
             </main>
 
             {/* Sidebar — 3 cols */}
-            <aside className="lg:col-span-3 min-w-0 space-y-6">
-              <div className="bg-card border border-border rounded-lg p-4 shadow-sm">
-                <h3 className="text-base sm:text-lg font-semibold text-foreground mb-4">
-                  Visibility Movers
-                </h3>
+            <aside className="hidden lg:flex lg:flex-col w-72 xl:w-80 shrink-0 space-y-6 sticky top-16 self-start">
+
+              {/* Card 1 — MVP's */}
+              <div className="bg-card border border-border rounded-lg p-6 shadow-sm">
+                <div className="flex items-center justify-between mb-5">
+                  <h3
+                    className="text-base font-semibold text-foreground tracking-wide uppercase"
+                    style={{ fontFamily: 'Switzer, Helvetica Neue, Helvetica, Arial, sans-serif' }}
+                  >
+                    MVP&apos;s
+                  </h3>
+                  <select
+                    value={mvpPeriod}
+                    onChange={(e) => setMvpPeriod(e.target.value as '7d' | '30d' | '90d')}
+                    className="text-sm text-muted-foreground bg-transparent border border-border rounded px-2 py-1 cursor-pointer focus:outline-none focus:border-foreground/40 transition-colors hover:text-foreground"
+                    style={{ fontFamily: 'Switzer, Helvetica Neue, Helvetica, Arial, sans-serif' }}
+                  >
+                    <option value="7d">7 días</option>
+                    <option value="30d">30 días</option>
+                    <option value="90d">90 días</option>
+                  </select>
+                </div>
+                <ol className="space-y-4">
+                  {[
+                    { name: "Mercadona", domain: "mercadona.es", delta: "+34%" },
+                    { name: "Zara",      domain: "zara.com",     delta: "+21%" },
+                    { name: "Vueling",   domain: "vueling.com",  delta: "+18%" },
+                    { name: "Lidl",      domain: "lidl.es",      delta: "+11%" },
+                    { name: "Gullón",    domain: "gullon.es",    delta: "+6%"  },
+                  ].map((brand, i) => (
+                    <li key={brand.domain} className="flex items-center gap-3">
+                      <span className="text-xs font-mono text-muted-foreground w-4 shrink-0">
+                        {i + 1}
+                      </span>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={`https://www.google.com/s2/favicons?domain=${brand.domain}&sz=32`}
+                        alt=""
+                        width={16}
+                        height={16}
+                        className="rounded-sm shrink-0 opacity-90"
+                      />
+                      <span className="text-sm text-foreground flex-1 truncate">{brand.name}</span>
+                      <span className="font-mono text-sm text-[#1a7a3c] dark:text-[#4ade80] font-semibold tabular-nums shrink-0">
+                        {brand.delta}
+                      </span>
+                    </li>
+                  ))}
+                </ol>
               </div>
 
-              <div className="bg-card border border-border rounded-lg p-4 shadow-sm">
-                <h3 className="text-base sm:text-lg font-semibold text-foreground mb-4">
-                  Sentimiento de mercado
-                </h3>
+              {/* Card 2 — Sentimiento de mercado */}
+              <div className="bg-card border border-border rounded-lg p-6 shadow-sm">
+                <div className="flex items-center justify-between mb-5">
+                  <h3
+                    className="text-base font-semibold text-foreground tracking-wide uppercase"
+                    style={{ fontFamily: 'Switzer, Helvetica Neue, Helvetica, Arial, sans-serif' }}
+                  >
+                    Sentimiento
+                  </h3>
+                  <select
+                    defaultValue="7d"
+                    className="text-sm text-muted-foreground bg-transparent border border-border rounded px-2 py-1 cursor-pointer focus:outline-none focus:border-foreground/40 transition-colors hover:text-foreground"
+                    style={{ fontFamily: 'Switzer, Helvetica Neue, Helvetica, Arial, sans-serif' }}
+                  >
+                    <option value="7d">7 días</option>
+                    <option value="30d">30 días</option>
+                    <option value="90d">90 días</option>
+                  </select>
+                </div>
+                <ul className="space-y-5">
+                  {[
+                    { sector: "Retail",       delta: "−12%", signals: 34, color: "#b02a2a", barWidth: "72%" },
+                    { sector: "Alimentación", delta: "=0%",  signals: 21, color: "#737373", barWidth: "48%" },
+                    { sector: "Transporte",   delta: "+8%",  signals: 17, color: "#1a7a3c", barWidth: "58%" },
+                  ].map((row) => (
+                    <li key={row.sector}>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm text-foreground font-medium">{row.sector}</span>
+                        <div className="flex items-center gap-2">
+                          <span
+                            className="font-mono text-sm font-semibold tabular-nums"
+                            style={{ color: row.color }}
+                          >
+                            {row.delta}
+                          </span>
+                          <span className="text-xs text-muted-foreground font-mono">
+                            {row.signals} señales
+                          </span>
+                        </div>
+                      </div>
+                      <div className="h-[4px] w-full bg-border rounded-full overflow-hidden">
+                        <div
+                          className="h-full rounded-full"
+                          style={{ width: row.barWidth, backgroundColor: row.color }}
+                        />
+                      </div>
+                    </li>
+                  ))}
+                </ul>
               </div>
+
             </aside>
 
           </div>

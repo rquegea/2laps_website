@@ -156,14 +156,14 @@
     @apply border-border;
   }
   html {
-    overflow-x: hidden;
+    overflow-x: clip;
   }
   body {
     @apply bg-background text-foreground;
     zoom: 0.8;
     width: 125vw;
     min-height: 125vh;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 }
 
